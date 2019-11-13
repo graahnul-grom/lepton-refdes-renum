@@ -3,3 +3,5 @@
 ( use-modules ( renum aux ) )
 ( eklmn )
 
+; vim: ft=scheme tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+

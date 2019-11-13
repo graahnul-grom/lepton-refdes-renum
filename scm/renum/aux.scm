@@ -1,6 +1,8 @@
 ( define-module ( renum aux )
-  #:use-module  ( ice-9 regex )
-  #:use-module  ( geda attrib )
+  #:use-module ( ice-9  optargs ) ; define*-public
+  #:use-module ( ice-9  regex )
+  #:use-module ( geda   attrib )
+  #:use-module ( lepton page )
 )
 
 
@@ -34,12 +36,51 @@
 
 
 
+; {ret}: list of attr objs named [aname]
+;
+( define*-public ( filter-aobjs objs #:optional (aname "refdes") )
+( let
+  (
+  ( res '() )
+  )
+
+  ( define ( attr-name-match? obj )
+    ; return:
+    ( and
+      ( attribute? obj )
+      ( string=? (attrib-name obj) aname )
+    )
+  )
+
+  ( define ( add-aobj aobj )
+    ( set! res ( cons aobj res ) )
+  )
+
+  ( for-each add-aobj (filter attr-name-match? objs) )
+
+  ; return:
+  ( reverse res )
+
+) ; let
+) ; filter-aobjs()
+
+
+
 ( define-public ( eklmn )
+( let
+  (
+  ( p  #f )
+  ( aa #f )
+  )
+
   ( format #t " .. (renum aux)::eklmn()~%" )
 
-  ( format #t ": [~a]~%" ( refdes-prefix "Rrr?" ) )
-  ( format #t ": [~a]~%" ( refdes-suffix "Rrr?" ) )
-)
+  ( set! p ( file->page "tst0.sch" ) )
+  ( set! aa ( filter-aobjs (page-contents p) ) )
+  ( format #t "aa: [~a]~%" aa )
+
+) ; let
+) ; eklmn()
 
 ; vim: ft=scheme tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
