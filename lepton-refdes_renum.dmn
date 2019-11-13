@@ -116,21 +116,21 @@ if (defined($gentle)) {  # First scan through design to build hash
 		    # Part has no pre-existing refdes.
 		    # Skip to next part.
 		    next;
-		} elsif (!defined($highdev{$i, $pre})) { 
-                    # refdes is not cached, but refdes exists on part.  
+		} elsif (!defined($highdev{$i, $pre})) {
+                    # refdes is not cached, but refdes exists on part.
 		    # Create new cache entry
 		    if ($suf < $pgskip) {
 			# if pgskip=100, on pg 1, and suf = 23, set highdev=123.
 			$highdev{$i, $pre} = ($i+1)*$pgskip + $suf;
-		    } elsif ( ( ($i+1)*$pgskip < $suf) && 
-			      ( ($i+2)*$pgskip > $suf) ) { 
+		    } elsif ( ( ($i+1)*$pgskip < $suf) &&
+			      ( ($i+2)*$pgskip > $suf) ) {
 			# if pgskip=100, we're on pg 2, and suf = 204, set highdev=204.
 			$highdev{$i, $pre} = $suf;
 		    } else {
 			# I don't know what to do!
 			die_sdb(3, "Encountered refdes incompatable with --pgskip setting.  Refdes=$pre$suf.\n");
 		    }
-			
+
 		} elsif ($highdev{$i, $pre} < $suf) {
 		    # part has refdes and refdes is higher than cached
                     # value.  Store this new value as highest value.
@@ -183,11 +183,42 @@ if (defined($gentle)) {  # First scan through design to build hash
 for($i=0; $i < $filecnt; $i++) {   # $i is the file index.
     print "Now processing input file #".($i+1).": $fname[$i]\n";
     open(NETLIST,"$fname[$i]") or die_sdb(1, "Can't open $fname[$i]: $!\n");
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
     # open output netlist
-    $outfname="$fname[$i].renum";
+    $outfname="$fname[$i].renum.sch";
+    # [dmn]: $outfname="$fname[$i].renum";
     open(OUTNET,">$outfname") or die_sdb(2, "Can't open $outfname: $!\n");
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # Iterate over lines found in .sch file.
     while($line = <NETLIST>) {  
 	unless( $line =~ /^refdes/) {
