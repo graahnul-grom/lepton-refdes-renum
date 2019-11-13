@@ -19,5 +19,19 @@
   ( format #t "~%" )
 )
 
+
+
+; [ht]: hash table: [refdes prefix] => [list of attr objs]
+;
+( define-public ( dbg-out-mapping ht )
+  ( hash-for-each
+  ( lambda( key val )
+    ( format #t "~a => " key )
+    ( dbg-out-attrs val )
+  )
+    ht
+  )
+)
+
 ; vim: ft=scheme tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
