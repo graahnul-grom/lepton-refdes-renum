@@ -1,4 +1,4 @@
-( define-module ( renum dbg )
+( define-module ( lepton renum dbg )
   #:use-module ( ice-9 format )
   #:use-module ( geda  attrib )
 )
