@@ -106,7 +106,7 @@
   ( ht #f )
   )
 
-  ( format #t " .. (renum aux)::eklmn()~%" )
+  ( format #t " .. (lepton renum aux)::eklmn()~%" )
 
   ( set! p ( file->page "tst0.sch" ) )
   ( set! aa ( filter-aobjs (page-contents p) ) )
