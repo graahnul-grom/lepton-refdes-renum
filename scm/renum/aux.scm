@@ -3,6 +3,7 @@
   #:use-module ( ice-9  regex )
   #:use-module ( geda   attrib )
   #:use-module ( lepton page )
+  #:use-module ( renum  dbg )
 )
 
 
@@ -66,6 +67,7 @@
 
 
 
+
 ( define-public ( eklmn )
 ( let
   (
@@ -78,6 +80,8 @@
   ( set! p ( file->page "tst0.sch" ) )
   ( set! aa ( filter-aobjs (page-contents p) ) )
   ( format #t "aa: [~a]~%" aa )
+  ( dbg-out-attrs aa )
+  ( dbg-out-attrs ( list 'qqq 123 ) )
 
 ) ; let
 ) ; eklmn()
