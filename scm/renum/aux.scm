@@ -67,21 +67,52 @@
 
 
 
+; [aobjs]: attr objs
+; [ht]:    hash table: [refdes prefix] => [list of attr objs]
+;
+( define*-public ( mk-mapping aobjs #:optional ( ht (make-hash-table) ) )
+( let
+  (
+  ( key  #f ) ; refdes prefix
+  ( val '() ) ; list of attr objs
+  )
+
+  ( for-each
+  ( lambda( a )
+    ( set! key ( refdes-prefix a ) )
+    ( when key
+        ( set! val ( hash-ref ht key '() ) ) ; '() <=> dflt val if no such key
+        ( set! val ( cons a val ) )
+        ( hash-set! ht key val )
+    )
+  )
+  aobjs
+  )
+
+  ; return:
+  ht
+
+) ; let
+) ; mk-mapping()
+
+
+
 
 ( define-public ( eklmn )
 ( let
   (
   ( p  #f )
   ( aa #f )
+  ( ht #f )
   )
 
   ( format #t " .. (renum aux)::eklmn()~%" )
 
   ( set! p ( file->page "tst0.sch" ) )
   ( set! aa ( filter-aobjs (page-contents p) ) )
-  ( format #t "aa: [~a]~%" aa )
+  ( set! ht ( mk-mapping aa ) )
   ( dbg-out-attrs aa )
-  ( dbg-out-attrs ( list 'qqq 123 ) )
+  ( dbg-out-mapping ht )
 
 ) ; let
 ) ; eklmn()
