@@ -47,21 +47,20 @@ exec guile "$0" "$@"
   (
   ( page   #f )
   ( pages '() )
+  ( objs  '() )
   ( aobjs '() )
+  ( ht     #f )
   )
-
-  ( define ( filter-aobjs-on-page page )
-    ( filter-aobjs (page-contents page) "refdes" )
-  )
-
 
   ( set! pages ( map file->page files ) )
 
   ; all attrs on all pages:
   ;
   ( for-each
-  ( lambda( p )
-    ( set! aobjs ( append aobjs (filter-aobjs-on-page p) ) )
+  ( lambda( page )
+    ( set! objs  ( page-contents page ) )
+    ( set! aobjs ( filter-aobjs objs ) )
+    ( set! aobjs ( append aobjs aobjs ) )
   )
     pages
   )
@@ -74,12 +73,15 @@ exec guile "$0" "$@"
   ( format #t "files: [~a]~%" files )
   ( for-each
   ( lambda( file )
-    ( format #t "f: [~a]~%" file )
-    ( set! page ( file->page file ) )
-    ( set! aobjs ( filter-aobjs-on-page page ) )
+    ( format #t " >> f: [~a]~%" file )
+    ( set! page  ( file->page file ) )
+    ( set! objs  ( page-contents page ) )
+    ( set! aobjs ( filter-aobjs objs ) )
 
     ( dbg-out-attrs aobjs )
-    ( dbg-out-mapping ( mk-mapping (filter-aobjs (page-contents page)) ) )
+
+    ( set! ht ( mk-mapping (filter-aobjs objs) ) )
+    ( dbg-out-mapping ht )
   )
     files
   )
