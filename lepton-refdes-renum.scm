@@ -76,9 +76,10 @@ exec guile "$0" "$@"
   ( lambda( file )
     ( format #t "f: [~a]~%" file )
     ( set! page ( file->page file ) )
-    ; ( dbg-out-mapping ( mk-mapping (filter-aobjs (page-contents page)) ) )
     ( set! aobjs ( filter-aobjs-on-page page ) )
+
     ( dbg-out-attrs aobjs )
+    ( dbg-out-mapping ( mk-mapping (filter-aobjs (page-contents page)) ) )
   )
     files
   )
