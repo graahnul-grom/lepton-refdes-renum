@@ -82,7 +82,8 @@
     ( set! key ( refdes-prefix a ) )
     ( when key
         ( set! val ( hash-ref ht key '() ) ) ; '() <=> dflt val if no such key
-        ( set! val ( cons a val ) )
+        ; was: ( set! val (cons a val) )
+        ( set! val ( append val (list a) ) )
         ( hash-set! ht key val )
     )
   )
