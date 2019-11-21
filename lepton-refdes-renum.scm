@@ -58,9 +58,9 @@ exec guile "$0" "$@"
   ;
   ( for-each
   ( lambda( page )
-    ( set! objs  ( page-contents page ) )
-    ( set! aobjs ( filter-aobjs objs ) )
-    ( set! aobjs ( append aobjs aobjs ) )
+    ( set! objs ( page-contents page ) )
+    ( set! objs  ( filter-aobjs objs ) )
+    ( set! aobjs ( append aobjs objs ) )
   )
     pages
   )
@@ -80,7 +80,7 @@ exec guile "$0" "$@"
 
     ( dbg-out-attrs aobjs )
 
-    ( set! ht ( mk-mapping (filter-aobjs objs) ) )
+    ( set! ht ( mk-mapping aobjs ) )
     ( dbg-out-mapping ht )
   )
     files
