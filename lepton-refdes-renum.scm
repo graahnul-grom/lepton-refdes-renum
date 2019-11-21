@@ -24,6 +24,7 @@ exec guile "$0" "$@"
 ( primitive-eval '(use-modules (lepton version)) )
 ; ( primitive-eval '(use-modules (lepton renum aux)) )
 ; ( primitive-eval '(use-modules (lepton renum dbg)) )
+( primitive-eval '(use-modules (geda log)) )
 
 
 
@@ -44,13 +45,40 @@ exec guile "$0" "$@"
 ( define ( tst files )
 ( let
   (
-  ( p #f )
+  ( page   #f )
+  ( pages '() )
+  ( aobjs '() )
   )
 
+  ( define ( filter-aobjs-on-page page )
+    ( filter-aobjs (page-contents page) "refdes" )
+  )
+
+
+  ( set! pages ( map file->page files ) )
+
+  ; all attrs on all pages:
+  ;
+  ( for-each
+  ( lambda( p )
+    ( set! aobjs ( append aobjs (filter-aobjs-on-page p) ) )
+  )
+    pages
+  )
+
+  ( dbg-out-attrs aobjs )
+
+
+  ; attrs on each page:
+  ;
   ( format #t "files: [~a]~%" files )
   ( for-each
-  ( lambda( f )
-    ( format #t "f: [~a]~%" f )
+  ( lambda( file )
+    ( format #t "f: [~a]~%" file )
+    ( set! page ( file->page file ) )
+    ; ( dbg-out-mapping ( mk-mapping (filter-aobjs (page-contents page)) ) )
+    ( set! aobjs ( filter-aobjs-on-page page ) )
+    ( dbg-out-attrs aobjs )
   )
     files
   )
@@ -91,6 +119,12 @@ exec guile "$0" "$@"
 ( %with-toplevel
   ( %make-toplevel )
   ( lambda()
+    ;
+    ; gotcha: w/o init-log() call, warnings about loaded RC files
+    ;         will be printed to STDERR:
+    ;
+    ( init-log "refdes-renum" )
+
     ( main )
   )
 )
