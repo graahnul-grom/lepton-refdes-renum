@@ -59,7 +59,7 @@ exec guile "$0" "$@"
   ( for-each
   ( lambda( page )
     ( set! objs ( page-contents page ) )
-    ( set! objs  ( filter-aobjs objs ) )
+    ( set! objs  ( filter-aobjs objs ) ) ; filter-aobjs() => refdes'es by default
     ( set! aobjs ( append aobjs objs ) )
   )
     pages
