@@ -11,21 +11,30 @@ exec guile "$0" "$@"
 ;; License: GPLv2+. See the COPYING file
 ;;
 
-( load-extension
-  ( or (getenv "LIBLEPTON") "/home/dmn/lepton/bin.master/lib/liblepton" )
-  "liblepton_init"
+( eval-when ( expand load eval )
+  ( unless ( getenv "LIBLEPTON" )
+    ( add-to-load-path "/home/dmn/lepton/bin.master/share/lepton-eda/scheme")
+    ( set!
+      %load-compiled-path
+      ( cons "/home/dmn/lepton/bin.master/share/lepton-eda/ccache" %load-compiled-path )
+    )
+  )
 )
 
 ( use-modules ( ice-9 getopt-long ) )
 ( use-modules ( ice-9 format ) )
+( use-modules ( lepton ffi ) )
+( use-modules ( lepton toplevel ) )
+( use-modules ( lepton object ) )
+( use-modules ( lepton page ) )
+( use-modules ( lepton version ) )
+( use-modules ( lepton log ) )
 
-; ( primitive-eval '(use-modules (geda core toplevel)) )
-( primitive-eval '(use-modules (lepton object)) )
-( primitive-eval '(use-modules (lepton page)) )
-( primitive-eval '(use-modules (lepton version)) )
-; ( primitive-eval '(use-modules (lepton renum aux)) )
-; ( primitive-eval '(use-modules (lepton renum dbg)) )
-( primitive-eval '(use-modules (lepton log)) )
+( liblepton_init )
+( unless ( getenv "LEPTON_INHIBIT_RC_FILES" )
+  ( register-data-dirs )
+)
+( edascm_init )
 
 
 
