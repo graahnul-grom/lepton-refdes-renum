@@ -29,6 +29,7 @@ exec guile "$0" "$@"
 ( use-modules ( lepton page ) )
 ( use-modules ( lepton version ) )
 ( use-modules ( lepton log ) )
+( use-modules ( lepton rc ) )
 
 ( liblepton_init )
 ( unless ( getenv "LEPTON_INHIBIT_RC_FILES" )
@@ -117,7 +118,8 @@ exec guile "$0" "$@"
     ( primitive-exit 11 )
   )
 
-  ( (@@ (guile-user) parse-rc) "lepton-refdes-renum" "gafrc" )
+  ( parse-rc "lepton-refdes-renum" "gafrc" )
+  ; ( (@@ (guile-user) parse-rc) "lepton-refdes-renum" "gafrc" )
   ( use-modules ( lepton renum aux ) )
   ( use-modules ( lepton renum dbg ) )
 
