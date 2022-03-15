@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+export LD_LIBRARY_PATH=/home/dmn/lepton/bin.master/lib
 export GUILE_AUTO_COMPILE=0
 exec guile "$0" "$@"
 !#
