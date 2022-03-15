@@ -6,25 +6,25 @@ exec guile "$0" "$@"
 ;;
 ;; Lepton EDA
 ;; lepton-refdes-renum - batch refdes renumbering utility
-;; Copyright (C) 2019 dmn <graahnul.grom@gmail.com>
+;; Copyright (C) 2019-2022 dmn <graahnul.grom@gmail.com>
 ;; License: GPLv2+. See the COPYING file
 ;;
 
 ( load-extension
   ( or (getenv "LIBLEPTON") "/home/dmn/lepton/bin.master/lib/liblepton" )
-  "libgeda_init"
+  "liblepton_init"
 )
 
 ( use-modules ( ice-9 getopt-long ) )
 ( use-modules ( ice-9 format ) )
 
-( primitive-eval '(use-modules (geda core toplevel)) )
-( primitive-eval '(use-modules (geda object)) )
+; ( primitive-eval '(use-modules (geda core toplevel)) )
+( primitive-eval '(use-modules (lepton object)) )
 ( primitive-eval '(use-modules (lepton page)) )
 ( primitive-eval '(use-modules (lepton version)) )
 ; ( primitive-eval '(use-modules (lepton renum aux)) )
 ; ( primitive-eval '(use-modules (lepton renum dbg)) )
-( primitive-eval '(use-modules (geda log)) )
+( primitive-eval '(use-modules (lepton log)) )
 
 
 
