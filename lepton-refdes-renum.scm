@@ -53,55 +53,6 @@ exec guile "$0" "$@"
 
 
 
-( define ( tst files )
-( let
-  (
-  ( page   #f )
-  ( pages '() )
-  ( objs  '() )
-  ( aobjs '() )
-  ( ht     #f )
-  )
-
-  ( set! pages ( map file->page files ) )
-
-  ; all attrs on all pages:
-  ;
-  ( for-each
-  ( lambda( page )
-    ( set! objs ( page-contents page ) )
-    ( set! objs  ( filter-aobjs objs ) ) ; filter-aobjs() => refdes'es by default
-    ( set! aobjs ( append aobjs objs ) )
-  )
-    pages
-  )
-
-  ( dbg-out-attrs aobjs )
-
-
-  ; attrs on each page:
-  ;
-  ( format #t "files: [~a]~%" files )
-  ( for-each
-  ( lambda( file )
-    ( format #t " >> f: [~a]~%" file )
-    ( set! page  ( file->page file ) )
-    ( set! objs  ( page-contents page ) )
-    ( set! aobjs ( filter-aobjs objs ) )
-
-    ( dbg-out-attrs aobjs )
-
-    ( set! ht ( mk-mapping aobjs ) )
-    ( dbg-out-mapping ht )
-  )
-    files
-  )
-
-) ; let
-) ; tst()
-
-
-
 ( define ( main )
 ( let
   (
@@ -119,11 +70,9 @@ exec guile "$0" "$@"
   )
 
   ( parse-rc "lepton-refdes-renum" "gafrc" )
-  ; ( (@@ (guile-user) parse-rc) "lepton-refdes-renum" "gafrc" )
   ( use-modules ( lepton renum aux ) )
   ( use-modules ( lepton renum dbg ) )
 
-  ; ( tst files )
   ( dbg-out-files files )
 
 ) ; let
