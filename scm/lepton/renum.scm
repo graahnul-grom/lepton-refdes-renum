@@ -1,4 +1,4 @@
-( define-module ( lepton renum aux )
+( define-module ( lepton renum )
   #:use-module ( ice-9  optargs ) ; define*-public
   #:use-module ( ice-9  regex )
   #:use-module ( lepton attrib )

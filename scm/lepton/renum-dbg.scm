@@ -2,7 +2,7 @@
   #:use-module ( ice-9 format )
   #:use-module ( lepton attrib )
   #:use-module ( lepton page )
-  #:use-module ( lepton renum aux )
+  #:use-module ( lepton renum )
 )
 
 
