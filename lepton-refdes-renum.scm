@@ -71,7 +71,7 @@ exec guile "$0" "$@"
 
   ( parse-rc "lepton-refdes-renum" "gafrc" )
   ( use-modules ( lepton renum aux ) )
-  ( use-modules ( lepton renum dbg ) )
+  ( use-modules ( lepton renum-dbg ) )
 
   ( dbg-out-files files )
 
