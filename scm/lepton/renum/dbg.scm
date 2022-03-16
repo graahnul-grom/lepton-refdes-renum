@@ -10,10 +10,7 @@
 ( define-public ( dbg-out-attrs attrs )
   ( for-each
   ( lambda( a )
-    ( if ( attribute? a )
-      ( format #t "[~a=~a]" (attrib-name a) (attrib-value a) )
-      ( format #t "[!a: ~a]" a )
-    )
+    ( format #t "[~a=~a]" (attrib-name a) (attrib-value a) )
     ( format #t " " )
   )
   attrs
