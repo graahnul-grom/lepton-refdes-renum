@@ -8,14 +8,19 @@
 
 
 ( define-public ( dbg-out-attrs attrs )
-  ( for-each
-  ( lambda( a )
-    ( format #t "~a" (attrib-value a) )
+
+  ( define ( out-attr attr )
+    ( format #t "~a" (attrib-value attr) )
     ( format #t " " )
   )
-  attrs
+
+  ( for-each
+    out-attr
+    attrs
   )
+
   ( format #t "~%" )
+
 )
 
 
