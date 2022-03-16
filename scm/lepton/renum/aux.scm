@@ -3,7 +3,6 @@
   #:use-module ( ice-9  regex )
   #:use-module ( lepton attrib )
   #:use-module ( lepton page )
-  #:use-module ( lepton renum dbg )
 )
 
 
@@ -95,28 +94,6 @@
 
 ) ; let
 ) ; mk-mapping()
-
-
-
-
-( define-public ( eklmn )
-( let
-  (
-  ( p  #f )
-  ( aa #f )
-  ( ht #f )
-  )
-
-  ( format #t " .. (lepton renum aux)::eklmn()~%" )
-
-  ( set! p ( file->page "tst0.sch" ) )
-  ( set! aa ( filter-aobjs (page-contents p) ) )
-  ( set! ht ( mk-mapping aa ) )
-  ( dbg-out-attrs aa )
-  ( dbg-out-mapping ht )
-
-) ; let
-) ; eklmn()
 
 ; vim: ft=scheme tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
