@@ -7,15 +7,18 @@
 
 
 
+
+( define ( dbg-out-attr attr )
+  ( format #t "~a" (attrib-value attr) )
+  ( format #t " " )
+)
+
+
+
 ( define-public ( dbg-out-attrs attrs )
 
-  ( define ( out-attr attr )
-    ( format #t "~a" (attrib-value attr) )
-    ( format #t " " )
-  )
-
   ( for-each
-    out-attr
+    dbg-out-attr
     attrs
   )
 
@@ -41,7 +44,10 @@
   )
 
 
-  ( for-each out-file files)
+  ( for-each
+    out-file
+    files
+  )
 
 ) ; dbg-out-files()
 
