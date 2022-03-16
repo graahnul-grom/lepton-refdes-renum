@@ -1,6 +1,8 @@
 ( define-module ( lepton renum dbg )
   #:use-module ( ice-9 format )
   #:use-module ( lepton attrib )
+  #:use-module ( lepton page )
+  #:use-module ( lepton renum aux )
 )
 
 
@@ -18,6 +20,28 @@
   )
   ( format #t "~%" )
 )
+
+
+
+( define-public ( dbg-out-files files )
+
+  ( define ( out-objs objs )
+    ( dbg-out-attrs (filter-aobjs objs) )
+  )
+
+  ( define ( out-page page )
+    ( out-objs (page-contents page) )
+  )
+
+  ( define ( out-file file )
+    ( format #t "file: ~a~%" file )
+    ( out-page (file->page file) )
+  )
+
+
+  ( for-each out-file files)
+
+) ; dbg-out-files()
 
 
 

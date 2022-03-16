@@ -123,7 +123,8 @@ exec guile "$0" "$@"
   ( use-modules ( lepton renum aux ) )
   ( use-modules ( lepton renum dbg ) )
 
-  ( tst files )
+  ; ( tst files )
+  ( dbg-out-files files )
 
 ) ; let
 ) ; main()
