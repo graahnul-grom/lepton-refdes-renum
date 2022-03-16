@@ -1,7 +1,7 @@
 ( define-module ( lepton renum aux )
   #:use-module ( ice-9  optargs ) ; define*-public
   #:use-module ( ice-9  regex )
-  #:use-module ( geda   attrib )
+  #:use-module ( lepton attrib )
   #:use-module ( lepton page )
   #:use-module ( lepton renum dbg )
 )
