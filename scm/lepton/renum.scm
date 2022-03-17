@@ -36,9 +36,9 @@
 
 
 
-; {ret}: list of attr objs named [aname]
+; {ret}: list of attr objs named "refdes"
 ;
-( define*-public ( filter-refdes-objs objs #:optional (aname "refdes") )
+( define-public ( filter-refdes-objs objs )
 ( let
   (
   ( res '() )
@@ -48,7 +48,7 @@
     ; return:
     ( and
       ( attribute? obj )
-      ( string=? (attrib-name obj) aname )
+      ( string=? (attrib-name obj) "refdes" )
     )
   )
 
@@ -56,7 +56,10 @@
     ( set! res ( cons aobj res ) )
   )
 
-  ( for-each add-aobj (filter attr-name-match? objs) )
+  ( for-each
+    add-aobj
+    ( filter attr-name-match? objs )
+  )
 
   ; return:
   ( reverse res )
