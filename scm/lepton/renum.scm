@@ -38,7 +38,7 @@
 
 ; {ret}: list of attr objs named [aname]
 ;
-( define*-public ( filter-aobjs objs #:optional (aname "refdes") )
+( define*-public ( filter-refdes-objs objs #:optional (aname "refdes") )
 ( let
   (
   ( res '() )
@@ -62,7 +62,7 @@
   ( reverse res )
 
 ) ; let
-) ; filter-aobjs()
+) ; filter-refdes-objs()
 
 
 

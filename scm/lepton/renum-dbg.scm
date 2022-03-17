@@ -31,7 +31,7 @@
 ( define-public ( dbg-out-files files )
 
   ( define ( out-objs objs )
-    ( dbg-out-attrs (filter-aobjs objs) )
+    ( dbg-out-attrs (filter-refdes-objs objs) )
   )
 
   ( define ( out-page page )
