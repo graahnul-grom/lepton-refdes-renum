@@ -73,7 +73,14 @@ exec guile "$0" "$@"
   ( use-modules ( lepton renum ) )
   ( use-modules ( lepton renum-dbg ) )
 
-  ( dbg-out-files files )
+  ; ( dbg-out-files files )
+
+  ( for-each
+  ( lambda ( file )
+    ( refdes-renum (file->page file) )
+  )
+    files
+  )
 
 ) ; let
 ) ; main()
@@ -93,4 +100,6 @@ exec guile "$0" "$@"
     ( main )
   )
 )
+
+; vim: ft=scheme tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 

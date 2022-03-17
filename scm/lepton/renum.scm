@@ -98,5 +98,22 @@
 ) ; let
 ) ; mk-mapping()
 
+
+
+( define-public ( refdes-renum page )
+( let*
+  (
+  ( objs  ( page-contents page ) )
+  ( aobjs ( filter-refdes-objs objs ) )
+  ( ht    ( mk-mapping aobjs ) )
+  )
+
+  ( format #t "refdes-renum( ~s )~%" ( basename (page-filename page) ) )
+
+) ; let
+) ; refdes-renum()
+
+
+
 ; vim: ft=scheme tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
