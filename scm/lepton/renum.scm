@@ -112,7 +112,7 @@
   ( lambda( a )
     ( set! prefix (refdes-prefix a) )
     ( set! value (format #f "~a~a" prefix n) )
-      ( format #t "  value: [~a]~%" value )
+      ( format #t "  value: ~a => ~20t~a~%" (attrib-value a) value )
     ( set! n (1+ n) )
   )
     aobjs
