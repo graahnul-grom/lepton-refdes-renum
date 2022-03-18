@@ -54,27 +54,21 @@ exec guile "$0" "$@"
 
 
 ( define ( main )
-( let
+( let*
   (
-  ( cmd-line-args '() )
-  ( files         '() )
+  ( cmd-line-args ( getopt-long (program-arguments) cmd-line-args-spec ) )
+  ( files         ( option-ref cmd-line-args '() '() ) )
   )
 
-  ( set! cmd-line-args
-    ( getopt-long (program-arguments) cmd-line-args-spec )
-  )
-
-  ( set! files ( option-ref cmd-line-args '() '() ) )
   ( when ( null? files )
     ( format #t "usage: ./lepton-refdes-renum.scm FILE ...~%" )
     ( primitive-exit 1 )
   )
 
   ( parse-rc "lepton-refdes-renum" "gafrc" )
+
   ( use-modules ( lepton renum ) )
   ( use-modules ( lepton renum-dbg ) )
-
-  ; ( dbg-out-files files )
 
   ( for-each
   ( lambda ( file )
@@ -97,7 +91,6 @@ exec guile "$0" "$@"
     ;         will be printed to STDERR:
     ;
     ( init-log "refdes-renum" )
-
     ( main )
   )
 )
