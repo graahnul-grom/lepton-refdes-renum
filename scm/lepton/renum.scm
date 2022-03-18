@@ -131,6 +131,18 @@
   ( ht    ( mk-mapping aobjs ) )
   )
 
+  ( define ( page-save )
+    ( if ( page-dirty? page )
+      ( with-output-to-file
+        ( page-filename page )
+        ( lambda()
+          ( format #t (page->string page) )
+        )
+      )
+    )
+  )
+
+
   ( format #t "refdes-renum( ~s )~%" ( basename (page-filename page) ) )
 
   ( hash-for-each
@@ -138,14 +150,7 @@
     ( format #t "~a => ~{~a ~}~%" key (map attrib-value val) )
 
     ( refdes-renum-impl val )
-
-    ( if ( page-dirty? page )
-      ( with-output-to-file (page-filename page)
-      ( lambda()
-        ( format #t (page->string page) )
-      )
-      )
-    )
+    ( page-save )
   )
     ht
   )
