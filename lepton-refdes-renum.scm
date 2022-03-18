@@ -65,8 +65,9 @@ exec guile "$0" "$@"
   )
 
   ( set! files ( option-ref cmd-line-args '() '() ) )
-  ( if ( null? files )
-    ( primitive-exit 11 )
+  ( when ( null? files )
+    ( format #t "usage: ./lepton-refdes-renum.scm FILE ...~%" )
+    ( primitive-exit 1 )
   )
 
   ( parse-rc "lepton-refdes-renum" "gafrc" )
