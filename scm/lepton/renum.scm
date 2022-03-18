@@ -113,6 +113,9 @@
     ( set! prefix (refdes-prefix a) )
     ( set! value (format #f "~a~a" prefix n) )
       ( format #t "  value: ~a => ~20t~a~%" (attrib-value a) value )
+
+    ( set-attrib-value! a value )
+
     ( set! n (1+ n) )
   )
     aobjs
@@ -133,7 +136,16 @@
   ( hash-for-each
   ( lambda( key val ) ; key: refdes prefix, val: list of aobjs
     ( format #t "~a => ~{~a ~}~%" key (map attrib-value val) )
+
     ( refdes-renum-impl val )
+
+    ( if ( page-dirty? page )
+      ( with-output-to-file (page-filename page)
+      ( lambda()
+        ( format #t (page->string page) )
+      )
+      )
+    )
   )
     ht
   )
