@@ -100,6 +100,26 @@
 
 
 
+( define ( refdes-renum-impl aobjs )
+( let
+  (
+  ( n 1 )
+  ( prefix "" )
+  ( value "" )
+  )
+
+  ( for-each
+  ( lambda( a )
+    ( set! prefix (refdes-prefix a) )
+    ( set! value (format #f "~a~a" prefix n) )
+      ( format #t "  value: [~a]~%" value )
+    ( set! n (1+ n) )
+  )
+    aobjs
+  )
+) ; let
+)
+
 ( define-public ( refdes-renum page )
 ( let*
   (
@@ -109,6 +129,14 @@
   )
 
   ( format #t "refdes-renum( ~s )~%" ( basename (page-filename page) ) )
+
+  ( hash-for-each
+  ( lambda( key val ) ; key: refdes prefix, val: list of aobjs
+    ( format #t "~a => ~{~a ~}~%" key (map attrib-value val) )
+    ( refdes-renum-impl val )
+  )
+    ht
+  )
 
 ) ; let
 ) ; refdes-renum()
