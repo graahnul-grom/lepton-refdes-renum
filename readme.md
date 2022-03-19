@@ -16,8 +16,10 @@ Usage
 ```
 
 2. In REPL or `:` prompt:
-```
+```scheme
 ( use-modules (lepton renum) )
-( refdes-renum (active-page) )
+
+( refdes-renum (active-page) ) ; renumber all refdes'
+( refdes-renum (active-page) #:unset-only #true ) ; renumber unset only
 ```
 

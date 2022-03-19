@@ -89,7 +89,7 @@
 ;
 ; {ret}: list of attr objs named "refdes"
 ;
-( define ( filter-refdes-objs objs )
+( define ( filter-refdes-objs objs unset-only )
 ( let
   (
   ( res '() )
@@ -100,6 +100,9 @@
     ( and
       ( attribute? obj )
       ( string=? (attrib-name obj) "refdes" )
+      ( if unset-only
+        ( refdes-unset? obj )
+      )
     )
   )
 
@@ -183,10 +186,10 @@
 
 ; public:
 ;
-( define ( refdes-renum page )
+( define* ( refdes-renum page #:key (unset-only #f) )
 ( let*
   (
-  ( aobjs ( filter-refdes-objs (page-contents page) ) )
+  ( aobjs ( filter-refdes-objs (page-contents page) unset-only ) )
   ( ht    ( mk-mapping aobjs ) )
   )
 
