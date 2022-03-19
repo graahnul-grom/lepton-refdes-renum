@@ -11,7 +11,9 @@ exec guile "$0" "$@"
 
 ( eval-when ( expand load eval )
   ( unless ( getenv "LIBLEPTON" )
-    ( add-to-load-path (format #f "~a/~a" (getenv "LEPTON") "share/lepton-eda/scheme") )
+    ( add-to-load-path
+      ( format #f "~a/~a" (getenv "LEPTON") "share/lepton-eda/scheme" )
+    )
     ( set!
       %load-compiled-path
       ( cons

@@ -1,16 +1,19 @@
 ( define-module ( lepton renum )
-  #:use-module ( ice-9  optargs ) ; define*-public
   #:use-module ( ice-9  regex )
   #:use-module ( lepton attrib )
   #:use-module ( lepton page )
+
+  #:export ( refdes-renum )
 )
 
 
 
+; private:
+;
 ; [rd]:  can be either string or attr obj
 ; {ret}: ( cons prefix suffix )
 ;
-( define-public ( refdes-split rd )
+( define ( refdes-split rd )
 ( let*
   (
   ( refdes ( if (attribute? rd) (attrib-value rd) rd ) )
@@ -26,19 +29,21 @@
 ) ; let
 ) ; refdes-split()
 
-( define-public ( refdes-prefix rd )
+( define ( refdes-prefix rd )
   ( car ( refdes-split rd ) )
 )
 
-( define-public ( refdes-suffix rd )
+( define ( refdes-suffix rd )
   ( cdr ( refdes-split rd ) )
 )
 
 
 
+; private:
+;
 ; {ret}: list of attr objs named "refdes"
 ;
-( define-public ( filter-refdes-objs objs )
+( define ( filter-refdes-objs objs )
 ( let
   (
   ( res '() )
@@ -69,10 +74,12 @@
 
 
 
-; [aobjs]: attr objs
-; [ht]:    hash table: [refdes prefix] => [list of attr objs]
+; private:
 ;
-( define*-public ( mk-mapping aobjs #:optional ( ht (make-hash-table) ) )
+; [aobjs]: attr objs
+; {ret}    hash table: [refdes prefix] => [list of attr objs]
+;
+( define* ( mk-mapping aobjs #:optional ( ht (make-hash-table) ) )
 ( let
   (
   ( key  #f ) ; refdes prefix
@@ -100,6 +107,8 @@
 
 
 
+; private:
+;
 ( define ( refdes-renum-impl aobjs )
 ( let
   (
@@ -121,9 +130,13 @@
     aobjs
   )
 ) ; let
-)
+) ; refdes-renum-impl()
 
-( define-public ( refdes-renum page )
+
+
+; public:
+;
+( define ( refdes-renum page )
 ( let*
   (
   ( objs  ( page-contents page ) )
