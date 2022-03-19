@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
-export LD_LIBRARY_PATH=/home/dmn/lepton/bin.master/lib
-export GUILE_AUTO_COMPILE=0
 exec guile "$0" "$@"
 !#
 
@@ -13,10 +11,13 @@ exec guile "$0" "$@"
 
 ( eval-when ( expand load eval )
   ( unless ( getenv "LIBLEPTON" )
-    ( add-to-load-path "/home/dmn/lepton/bin.master/share/lepton-eda/scheme")
+    ( add-to-load-path (format #f "~a/~a" (getenv "LEPTON") "share/lepton-eda/scheme") )
     ( set!
       %load-compiled-path
-      ( cons "/home/dmn/lepton/bin.master/share/lepton-eda/ccache" %load-compiled-path )
+      ( cons
+        ( format #f "~a/~a" (getenv "LEPTON") "share/lepton-eda/ccache" )
+        %load-compiled-path
+      )
     )
   )
 )
