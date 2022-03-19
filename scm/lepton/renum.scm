@@ -21,7 +21,10 @@
   )
 
   ; return:
-  ( regexp-exec re refdes )
+  ( if ( regexp-exec re refdes )
+    #t
+    #f
+  )
 
 ) ; let
 ) ; refdes-set?()
@@ -41,7 +44,10 @@
   )
 
   ; return:
-  ( regexp-exec re refdes )
+  ( if ( regexp-exec re refdes )
+    #t
+    #f
+  )
 
 ) ; let
 ) ; refdes-unset?()
@@ -203,7 +209,7 @@
     ( format #t "~a => ~{~a ~}~%" key (map attrib-value val) )
 
     ( refdes-renum-impl val )
-    ( page-save )
+    ; ( page-save )
   )
     ht
   )
