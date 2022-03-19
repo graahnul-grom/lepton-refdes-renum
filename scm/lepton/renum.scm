@@ -79,9 +79,10 @@
 ; [aobjs]: attr objs
 ; {ret}    hash table: [refdes prefix] => [list of attr objs]
 ;
-( define* ( mk-mapping aobjs #:optional ( ht (make-hash-table) ) )
+( define ( mk-mapping aobjs )
 ( let
   (
+  ( ht  ( make-hash-table ) )
   ( key  #f ) ; refdes prefix
   ( val '() ) ; list of attr objs
   )
@@ -91,12 +92,12 @@
     ( set! key ( refdes-prefix a ) )
     ( when key
         ( set! val ( hash-ref ht key '() ) ) ; '() <=> dflt val if no such key
-        ; was: ( set! val (cons a val) )
+        ; NOTE: was: ( set! val (cons a val) )
         ( set! val ( append val (list a) ) )
         ( hash-set! ht key val )
     )
   )
-  aobjs
+    aobjs
   )
 
   ; return:
@@ -139,8 +140,7 @@
 ( define ( refdes-renum page )
 ( let*
   (
-  ( objs  ( page-contents page ) )
-  ( aobjs ( filter-refdes-objs objs ) )
+  ( aobjs ( filter-refdes-objs (page-contents page) ) )
   ( ht    ( mk-mapping aobjs ) )
   )
 
@@ -153,7 +153,7 @@
         )
       )
     )
-  )
+  ) ; page-save()
 
 
   ( format #t "refdes-renum( ~s )~%" ( basename (page-filename page) ) )
