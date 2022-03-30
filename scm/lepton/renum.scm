@@ -10,13 +10,13 @@
 
 ; private:
 ;
-; [rd]:  can be either string or attr obj
+; [rd]:  attr obj
 ; {ret}: #t if refdes is not set, e.g. R?
 ;
 ( define ( refdes-unset? rd )
 ( let
   (
-  ( refdes ( if (attribute? rd) (attrib-value rd) rd ) )
+  ( refdes ( attrib-value rd ) )
   ( re     ( make-regexp "[a-zA-Z_-]+\\?" ) )
   )
 
@@ -33,13 +33,13 @@
 
 ; private:
 ;
-; [rd]:  can be either string or attr obj
+; [rd]:  attr obj
 ; {ret}: ( cons prefix suffix )
 ;
 ( define ( refdes-split rd )
 ( let*
   (
-  ( refdes ( if (attribute? rd) (attrib-value rd) rd ) )
+  ( refdes ( attrib-value rd ) )
   ( re     ( make-regexp "([a-zA-Z_-]+)(\\?|[0-9]+)" ) )
   ( res    ( regexp-exec re refdes ) )
   ( prefix ( if res (match:substring res 1) #f ) )
