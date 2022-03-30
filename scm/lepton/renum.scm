@@ -40,7 +40,7 @@
 ( let*
   (
   ( refdes ( attrib-value rd ) )
-  ( re     ( make-regexp "([a-zA-Z_-]+)(\\?|[0-9]+)" ) )
+  ( re     ( make-regexp "([a-zA-Z_-]+)(\\?|[0-9]+)?" ) )
   ( res    ( regexp-exec re refdes ) )
   ( prefix ( if res (match:substring res 1) #f ) )
   ( suffix ( if res (match:substring res 2) #f ) )
@@ -56,9 +56,9 @@
   ( car ( refdes-split rd ) )
 )
 
-( define ( refdes-suffix rd )
-  ( cdr ( refdes-split rd ) )
-)
+; ( define ( refdes-suffix rd ) ; NOTE: unused
+  ; ( cdr ( refdes-split rd ) )
+; )
 
 
 
@@ -186,7 +186,7 @@
 
   ( hash-for-each
   ( lambda( key val ) ; key: refdes prefix, val: list of aobjs
-    ( format #t "~a => ~{~a ~}~%" key (map attrib-value val) )
+    ( format #t "refdes attrs: ~a => ~{~a ~}~%" key (map attrib-value val) )
 
     ( refdes-renum-impl val )
     ; ( page-save )
