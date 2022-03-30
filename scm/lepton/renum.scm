@@ -11,29 +11,6 @@
 ; private:
 ;
 ; [rd]:  can be either string or attr obj
-; {ret}: #t if refdes is set, e.g. R1
-;
-( define ( refdes-set? rd )
-( let
-  (
-  ( refdes ( if (attribute? rd) (attrib-value rd) rd ) )
-  ( re     ( make-regexp "[a-zA-Z_-]+[0-9]+" ) )
-  )
-
-  ; return:
-  ( if ( regexp-exec re refdes )
-    #t
-    #f
-  )
-
-) ; let
-) ; refdes-set?()
-
-
-
-; private:
-;
-; [rd]:  can be either string or attr obj
 ; {ret}: #t if refdes is not set, e.g. R?
 ;
 ( define ( refdes-unset? rd )
